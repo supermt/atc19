@@ -1,0 +1,75 @@
+\documentclass[letterpaper,twocolumn,10pt]{article}
+\usepackage{usenix2019_v3}
+
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{paralist}
+\usepackage{dblfloatfix}
+\usepackage{fixltx2e}
+\usepackage{caption}
+
+\begin{document}
+\date{}
+
+\title{\Large \bf Reducing Compaction Process of LSM with LvlupDB}
+
+\author{
+    {\rm Jinghuan\ YU}\\
+    Your Institution
+    \and
+    {\rm Second Name}\\
+    Second Institution
+} % end author
+
+\maketitle
+
+\begin{abstract}
+    abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract abstract
+\end{abstract}
+
+\section{Introduction}
+
+With the development of big data technology, the volume and the throughput of modern application system has greatly increased. To improve writing performance of the application system, Google proposed Bigtable~\cite{chang2008bigtable} storage system in 2008 and introduce the great advantage of LSM data structure. Log Structured Merge Tree, also known as LSM~\cite{LSM_ori}, is a specially designed data structure optimizing warm writing performance proposed in 1996. Due to its high writing performance and simple index structure, LSM gets widely used in big data storage systems, in-memory databases and embedding databases like Hbase~\cite{ApacheHB8:online}, Cassandra~\cite{ApacheCa91:online},MongoDB~\cite{MongoDBD83:online}, LevelDB and SQLite. LSM uses the in-memory buffer to achieve high writing performance, it aggregates a batch of writing operations and flashes them into the storage system once the memory space is limited. This buffer and batch technique force the writing operations into sequential access to the file system. Although LSM can take advantage of more efficient read and write on the file system, it also introduces the compaction process to keep the entire order of the persistent record. This additional software-level overhead can cause significant performance jitter and write amplification.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\columnwidth]{2018-12-24-15-28-12.png}
+    \end{center}
+    \caption{\label{fig:simple_compaction} A typical compaction process starts with choosing the files need compaction most. Then the system will decode the persistent data into memory processable format and merge all the entries inside these files. At last, create a new file to store the processed entires and remove outdated files. It can be concluded as three main steps: 1. file choosing step; 2. entry merging step; 3. wrtie out step.}
+\end{figure}
+
+There are two basic resources while analyzing the performance and bottleneck of a storage system:
+\begin{inparaenum}[1)]
+    \item the computation resources; and
+    \item the data transmission resources referred to as I/O $(Input/Output)$ resources;
+\end{inparaenum}
+The Figure \ref{fig:simple_compaction} shows the basic steps of compaction process, unlike other operations in LSM-based system, most of processing in compaction will consume both two resources, especially the entry merging step. In merging step, the system firstly read a period of data from sorted string tables $(SST)$, decode it from the file format into in-memory format, then compare it with other entires.
+
+There are many recent proposals focus on reducing the impact of compaction and improving throughput by using new storage materials~\cite{kannan2018redesigning,chen2017kvftl,zhang2017flashkv,xia2017hikv,wu2018kvssd,sun2018co,shen2017didacache}. Byte-addressed and fast nonvoltile memory such as 3d xpoint~\cite{3dxpoint} can bring following superiorities:
+\begin{inparaenum}[1)]
+    \item hgiher random access performance;
+    \item lower in-place update latency; and
+    \item better application-level parallelism.
+\end{inparaenum}
+With optimized redesigning of LSM~\cite{kannan2018redesigning}, LSM structure can achieve higher throughput. But the traditional architectures of LSM~\cite{comapction_types} can not reduce the performance impact of compaction even after changing the file choosing strategy, balancing the sorted files.
+
+%  while others are looking for solutions based on modifying the structure of LSM~\cite{chan2018hashkv,dayan2017monkey,dayan2018dostoevsky,zhang2014pipelined}. 
+
+\section{Background}
+In the content above, we discuss the detail of Compaction, and to get a more intuitive impression about the proportion and difference between these different compactions. Using benchmark to simulate a high-pressure environment, and during the experiment we find the speed of memtable compaction will continue grow to a limited boundary according to both the memory throughput and IO stack throughput.Before we can detailed analyze the overhead of compaction process, we should first figure out the common architecture of LSM-based databases.
+\section{Motivation}
+
+\section{Design}
+
+\section{Evaluation}
+
+\section{Related Work}
+
+\section{Acknowledgements}
+
+
+\bibliographystyle{plain}
+\bibliography{lvlup.bib}
+
+
+\end{document}

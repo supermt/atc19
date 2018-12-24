@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: lvlup.aux
+The style file: plain.bst
+Database file #1: lvlup.bib.bib
+Warning--to sort, need author or key in ApacheHB8:online
+Warning--to sort, need author or key in ApacheCa91:online
+Warning--to sort, need author or key in MongoDBD83:online
+Warning--to sort, need author or key in comapction_types
+You've used 14 entries,
+            2118 wiz_defined-function locations,
+            571 strings with 6595 characters,
+and the built_in function-call counts, 5092 in all, are:
+= -- 489
+> -- 259
+< -- 5
++ -- 106
+- -- 90
+* -- 344
+:= -- 784
+add.period$ -- 40
+call.type$ -- 14
+change.case$ -- 87
+chr.to.int$ -- 0
+cite$ -- 18
+duplicate$ -- 196
+empty$ -- 404
+format.name$ -- 90
+if$ -- 1104
+int.to.chr$ -- 0
+int.to.str$ -- 14
+missing$ -- 10
+newline$ -- 69
+num.names$ -- 20
+pop$ -- 116
+preamble$ -- 1
+purify$ -- 73
+quote$ -- 0
+skip$ -- 163
+stack$ -- 0
+substring$ -- 272
+swap$ -- 64
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 56
+warning$ -- 4
+while$ -- 39
+width$ -- 16
+write$ -- 140
+(There were 4 warnings)
